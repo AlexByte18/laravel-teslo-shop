@@ -4,4 +4,7 @@ use Modules\Category\Category;
 use Illuminate\Support\Facades\Route;
 use Modules\Category\CategoryController;
 
-Route::resource('api/categories', CategoryController::class);
+
+Route::prefix('api/v1')->middleware(['api', 'auth:sanctum'])->group(function () {
+    Route::resource('/categories', CategoryController::class);
+});

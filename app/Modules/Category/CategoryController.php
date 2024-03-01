@@ -4,13 +4,19 @@ namespace Modules\Category;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Modules\Category\Resources\CategoryCollection;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        $categories = Category::all();
+        // $this->middleware('auth:sanctum');
+    }
 
-        return response()->json($categories);
+    public function index(Request $request)
+    {
+        $categories = Category::paginate();
+
+        return new CategoryCollection($categories);
     }
 }
